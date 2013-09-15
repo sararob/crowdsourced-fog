@@ -1,16 +1,28 @@
-.neighborhood{
+.neighborhood {
 	display: inline-block;
 	padding: 10px;
 	margin: 10px;
 	border: 1px solid black;
 	border-radius: 5px;
-	max-width: 400px;
-	max-height: 400px;
+	max-width: 300px;
 	font-family: 'Cantarell';
+	box-shadow: 2px 2px 2px #CDC5BF;
 }
 
 h1 {
 	text-align: center;
+	color: #CDC5BF;
+	display: inline-block;
+}
+
+#heading {
+	margin-left: 30px;
+}
+
+#tweet {
+	display: inline-block;
+	float: right;
+	margin: 30px 30px 0px 0px;
 }
 
 .foggy, .foggy-count {
@@ -40,9 +52,21 @@ p {
 }
 
 .search {
-	margin-left: 40px;
+	margin-left: 30px;
 }
 
 #wrapper {
 	margin-left: 30px;
+}
+
+.weather-heading {
+	padding: 8px;
+}
+
+.sunny {
+	background: url('/img/sunny.jpg');
+}
+
+.foggy {
+	background: url('/img/fog.jpg');
 }
