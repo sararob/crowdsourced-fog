@@ -64,11 +64,11 @@ p {
 }
 
 .sunny {
-	background: url('/img/sunny.jpg');
+	background: url('img/sunny.jpg');
 }
 
 .foggy {
-	background: url('/img/fog.jpg');
+	background: url('img/fog.jpg');
 	box-shadow: 0px 0px 10px #C1C9CC;
 }
 
