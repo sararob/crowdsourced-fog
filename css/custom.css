@@ -12,7 +12,6 @@
 h1 {
 	text-align: center;
 	color: #CDC5BF;
-	display: inline-block;
 }
 
 #heading {
@@ -22,10 +21,10 @@ h1 {
 #tweet {
 	display: inline-block;
 	float: right;
-	margin: 30px 30px 0px 0px;
+	margin-right: 145px;
 }
 
-.foggy, .foggy-count {
+.foggy-button, .foggy-count {
 	float: right;
 }
 
@@ -52,7 +51,8 @@ p {
 }
 
 .search {
-	margin-left: 30px;
+	margin-left: 40px;
+	display: inline-block;
 }
 
 #wrapper {
@@ -69,4 +69,10 @@ p {
 
 .foggy {
 	background: url('/img/fog.jpg');
+	box-shadow: 0px 0px 10px #C1C9CC;
+}
+
+#firebase {
+	margin: 15px;
+	text-align: center;
 }
