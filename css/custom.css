@@ -73,11 +73,14 @@ p {
 
 .sunny {
 	background: url('sunny.jpg');
+	box-shadow: 0px 0px 5px #1589FF;
+	border-radius: 4px;
 }
 
 .foggy {
 	background: url('fog.jpg');
-	box-shadow: 0px 0px 10px #C1C9CC;
+	box-shadow: 0px 0px 25px #848482;
+	border-radius: 4px;
 }
 
 #firebase {
