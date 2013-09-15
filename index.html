@@ -1,0 +1,58 @@
+<!doctype html>
+<html ng-app="myapp">
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
+		<script src="https://cdn.firebase.com/v0/firebase.js"></script>
+		<script src="https://cdn.firebase.com/libs/angularfire/0.3.0/angularfire.min.js"></script>
+		<link rel="stylesheet" href="css/custom.css">
+		<link rel="stylesheet" href="css/foundation.css">
+
+		<script src="js/vendor/custom.modernizr.js"></script>
+	</head>
+	<body ng-controller="WeatherController" class="bod">
+		<h1>Crowdsourced Fog</h1>
+		<div ng-repeat="hood in hoods" class="neighborhood">
+			<div id="{{hood}}" ng-controller="WeatherController" ng-init="init(hood)">
+				<h2 class="hood">{{hood}}</h2>
+				<h3>It's currently {{weather}}</h3>
+				<p class="test">Sunny: {{sunny}}</p>
+				<p>Foggy: {{foggy}}</p>
+				<input type="button" value="Sunny" ng-click="sunny = sunny + 1" class="button small radius sunny-button"/>
+				<input type="button" value="Foggy" ng-click="foggy = foggy + 1" class="button small radius foggy"/>
+			</div>
+		</div>
+
+		<script>
+			var myapp = angular.module("myapp", ["firebase"]);
+			
+
+			function WeatherController($scope, angularFire) {
+				$scope.hoods = ["The Richmond", "The Presidio", "North Beach", "Golden Gate Park", "NOPA", "Tenderloin", "The Sunset", "The Haight", "SoMA", "The Mission", "Financial District",  "Nob Hill", "Russian Hill", "Chinatown", "The Marina", "Hayes Valley"];
+
+				$scope.init = function(neighborhood) {
+
+					$scope.neighborhood = neighborhood;
+				
+					var ref = new Firebase("https://angular-experiment.firebaseio.com/" + neighborhood);
+					$scope.sunny = 0;
+					$scope.foggy = 0;
+					$scope.weather = "sunny";
+					angularFire(ref.child("sunny"), $scope, "sunny");
+					angularFire(ref.child("foggy"), $scope, "foggy");
+
+					$scope.$watch("sunny", updateWeather);
+					$scope.$watch("foggy", updateWeather);
+
+					function updateWeather() {
+						if ($scope.sunny >= $scope.foggy) {
+							$scope.weather = "sunny";
+						} else {
+							$scope.weather = "foggy";
+						} 
+					}
+				}		
+			}
+
+		</script>
+	</body>
+</html>
