@@ -6,12 +6,43 @@
 	border-radius: 5px;
 	max-width: 400px;
 	max-height: 400px;
-}
-
-.foggy {
-	float: right;
+	font-family: 'Cantarell';
 }
 
 h1 {
 	text-align: center;
+}
+
+.foggy, .foggy-count {
+	float: right;
+}
+
+p {
+	display: inline-block;
+}
+
+#the-presidio {
+	back
+}
+
+#heading {
+	font-family: 'Montserrat Alternates';
+	color: grey;
+}
+
+.hood, .weather-heading, .search {
+	font-family: 'Cantarell';
+}
+
+#query {
+	width: 200px;
+	border-radius: 3px;
+}
+
+.search {
+	margin-left: 40px;
+}
+
+#wrapper {
+	margin-left: 30px;
 }

@@ -6,28 +6,83 @@
 		<script src="https://cdn.firebase.com/libs/angularfire/0.3.0/angularfire.min.js"></script>
 		<link rel="stylesheet" href="css/custom.css">
 		<link rel="stylesheet" href="css/foundation.css">
-
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Montserrat+Alternates&effect=decaying">
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cantarell">
 		<script src="js/vendor/custom.modernizr.js"></script>
 	</head>
 	<body ng-controller="WeatherController" class="bod">
-		<h1>Crowdsourced Fog</h1>
-		<div ng-repeat="hood in hoods" class="neighborhood">
-			<div id="{{hood}}" ng-controller="WeatherController" ng-init="init(hood)">
-				<h2 class="hood">{{hood}}</h2>
-				<h3>It's currently {{weather}}</h3>
-				<p class="test">Sunny: {{sunny}}</p>
-				<p>Foggy: {{foggy}}</p>
-				<input type="button" value="Sunny" ng-click="sunny = sunny + 1" class="button small radius sunny-button"/>
-				<input type="button" value="Foggy" ng-click="foggy = foggy + 1" class="button small radius foggy"/>
+
+		<h1 id="heading" class="font-effect-decaying">Crowdsourced Fog</h1>
+		<div class="search">Find Your Neighborhood: <input id="query" ng-model="query"></div>
+		<br/>
+		<div id="wrapper">
+			<div ng-repeat="hood in hoods | filter:query" class="neighborhood">
+				<div id="{{hood.id}}" ng-controller="WeatherController" ng-init="init(hood.value)">
+					<h2 class="hood">{{hood.value}}</h2>
+					<h3 class="weather-heading">It's currently {{weather}}</h3>
+					<div id="weather-count">
+						<p class="test">Sunny: {{sunny}}</p>
+						<p class="foggy-count">Foggy: {{foggy}}</p>
+					</div>
+					<input type="button" value="Sunny" ng-click="sunny = sunny + 1" class="button small radius sunny-button"/>
+					<input type="button" value="Foggy" ng-click="foggy = foggy + 1" class="button small radius foggy"/>
+				</div>
 			</div>
 		</div>
-
 		<script>
 			var myapp = angular.module("myapp", ["firebase"]);
 			
 
 			function WeatherController($scope, angularFire) {
-				$scope.hoods = ["The Richmond", "The Presidio", "North Beach", "Golden Gate Park", "NOPA", "Tenderloin", "The Sunset", "The Haight", "SoMA", "The Mission", "Financial District",  "Nob Hill", "Russian Hill", "Chinatown", "The Marina", "Hayes Valley"];
+				$scope.hoods = [{
+					value: 'The Richmond',
+					id: 'the-richmond'
+				}, {
+					value: 'The Presidio', 
+					id: 'the-presidio'
+				}, {
+					value: 'North Beach',
+					id: 'north-beach'
+				}, {
+					value: 'Golden Gate Park',
+					id: 'ggp'
+				}, {
+					value: 'NOPA',
+					id: 'nopa'
+				}, {
+					value: 'Tenderloin',
+					id: 'tenderloin'
+				}, {
+					value: 'The Sunset',
+					id: 'the-sunset'
+				}, {
+					value: 'The Haight',
+					id: 'the-haight'
+				}, {
+					value: 'SOMA',
+					id: 'soma'
+				}, {
+					value: 'The Mission',
+					id: 'the-mission'
+				}, {
+					value: 'Financial District',
+					id: 'fidi'
+				}, {
+					value: 'Nob Hill', 
+					id: 'nob-hill', 
+				}, {
+					value: 'Russian Hill',
+					id: 'russian-hill'
+				}, {
+					value: 'Chinatown',
+					id: 'chiatown'
+				}, {
+					value: 'The Marina',
+					id: 'marina'
+				}, {
+					value: 'Hayes Valley',
+					id: 'hayes-valley'
+				}];
 
 				$scope.init = function(neighborhood) {
 
