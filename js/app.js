@@ -1,11 +1,18 @@
+
+
+$('#wrapper').on('click', '.button', function(e) {
+	e.preventDefault();
+	console.log('clicked');
+});
+
 var myapp = angular.module("myapp", ["firebase"]);
-			
+
 function WeatherController($scope, angularFire) {
 	$scope.hoods = [{
 		value: 'The Richmond',
 		id: 'the-richmond'
 	}, {
-		value: 'The Presidio', 
+		value: 'The Presidio',
 		id: 'the-presidio'
 	}, {
 		value: 'North Beach',
@@ -35,8 +42,8 @@ function WeatherController($scope, angularFire) {
 		value: 'Financial District',
 		id: 'fidi'
 	}, {
-		value: 'Nob Hill', 
-		id: 'nob-hill', 
+		value: 'Nob Hill',
+		id: 'nob-hill',
 	}, {
 		value: 'Russian Hill',
 		id: 'russian-hill'
@@ -54,7 +61,7 @@ function WeatherController($scope, angularFire) {
 	$scope.init = function(neighborhood) {
 
 		$scope.neighborhood = neighborhood;
-	
+
 		var ref = new Firebase("https://angular-experiment.firebaseio.com/" + neighborhood);
 		$scope.sunny = 0;
 		$scope.foggy = 0;
@@ -66,11 +73,12 @@ function WeatherController($scope, angularFire) {
 		$scope.$watch("foggy", updateWeather);
 
 		function updateWeather() {
+
 			if ($scope.sunny >= $scope.foggy) {
 				$scope.weather = "sunny";
 			} else {
 				$scope.weather = "foggy";
-			} 
+			}
 		}
-	}		
+	};
 }
