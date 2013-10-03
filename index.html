@@ -1,51 +1,85 @@
 <!doctype html>
 <html ng-app="myapp">
-	<head>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
-		<script src="https://cdn.firebase.com/v0/firebase.js"></script>
-		<script src="https://cdn.firebase.com/libs/angularfire/0.3.0/angularfire.min.js"></script>
-		<script type="text/javascript" src="js/app.js"></script>
-		<link rel="stylesheet" href="css/custom.css">
-		<link rel="stylesheet" href="css/foundation.css">
-		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Montserrat+Alternates&effect=decaying">
-		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cantarell">
-		<script src="js/vendor/custom.modernizr.js"></script>
-	</head>
-	<body ng-controller="WeatherController" class="bod">
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/animate.min.css">
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/buttons.css">
+	<link rel="stylesheet" href="css/site.css">
+	<script src="js/vendor/custom.modernizr.js"></script>
+</head>
+<body ng-controller="WeatherController" class="bod">
+<section id="app">
 
-		<h1 id="heading" class="font-effect-decaying">Crowdsourced Fog</h1>
+	<!-- HEADER -->
+	<header>
+		<h1 class="animated bounceInDown">Crowdsourced Fog</h1>
 
-		<div id="first-row">
-			<div class="search">Find Your Neighborhood: <input id="query" ng-model="query"></div>
+		<nav id="first-row">
+			<input id="query" ng-model="query" placeholder="Find a Neighborhood in SF...">
+			<div class="clear"></div>
+		</nav>
+	</header>
 
-			<div id="tweet">
-				<a href="https://twitter.com/share" class="twitter-share-button" data-text="I'm tracking the weather in SF on Crowdsourced Fog!" data-via="SRobTweets">Tweet</a>
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+	<!-- WEATHER CARDS -->
+	<section id="wrapper">
+
+		<div ng-repeat="hood in hoods | filter:query" class="neighborhood animated swing">
+			<div class="card" id="{{hood.id}}" ng-class="{'sunny': weather == 'sunny', 'foggy': weather == 'foggy'}" ng-controller="WeatherController" ng-init="init(hood.value)">
+
+				<h3 class="hood">{{hood.value}}</h3>
+				<h4 class="weather-heading" ng-class="{'sunny': weather == 'sunny', 'foggy': weather == 'foggy'}"></h4>
+
+				<div id="weather-count">
+					<span class="test left">sunny: {{sunny}}</span>
+					<span class="foggy-count right">foggy {{foggy}}</span>
+					<div class="clear"></div>
+				</div>
+
+				<div class="controls">
+					<a href="#" ng-click="sunny = sunny + 1" class="button button-tiny button-highlight button-rounded"><i class="icon-sun"></i> Sunny</a>
+					<a href="#" ng-click="foggy = foggy + 1" class="right button button-tiny button-primary button-rounded"><i class="icon-cloud"></i> Foggy</a>
+					<div class="clear"></div>
+				</div>
 			</div>
 		</div>
-		<br/>
 
-		<div id="wrapper">
-				<div ng-repeat="hood in hoods | filter:query" class="neighborhood">
-					<div id="{{hood.id}}" ng-controller="WeatherController" ng-init="init(hood.value)">
-						<h3 class="hood">{{hood.value}}</h3>
-						<h4 class="weather-heading" ng-class="{'sunny': weather == 'sunny', 'foggy': weather == 'foggy'}">It's currently {{weather}}</h4>
-						<div id="weather-count">
-							<p class="test">Sunny: {{sunny}}</p>
-							<p class="foggy-count">Foggy: {{foggy}}</p>
-						</div>
-						<input type="button" value="Sunny" ng-click="sunny = sunny + 1" class="button small radius sunny-button secondary"/>
-						<input type="button" value="Foggy" ng-click="foggy = foggy + 1" class="button small radius secondary foggy-button"/>
-					</div>
-				</div>
-		</div>
+		<div class="clear"></div>
+	</section>
 
-		<div id="firebase">
-			<img src="img/firebase.png">
-		</div>
-		<script>
-			
 
-		</script>
-	</body>
+
+	<!-- FOOTER -->
+	<footer id="firebase">
+		<a href="http://www.firbase.com"><img src="img/firebase.png"></a>
+	</footer>
+
+
+	<!-- SOCIAL BAR -->
+    <div id="social-bar">
+          <!-- GITHUB STAR BUTTON -->
+            <iframe class="github-button" src="http://ghbtns.com/github-btn.html?user=kav-ya&repo=geoFire&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
+
+            <!-- GITHUB FORK BUTTON -->
+            <iframe class="github-button" src="http://ghbtns.com/github-btn.html?user=kav-ya&repo=geoFire&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
+
+            <!-- TWITTER TWEET BUTTON -->
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://github.com/kav-ya/geoFire" data-text="I'm tracking the weather in SF on Crowdsourced Fog!">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+            <!-- FACEBOOK LIKE BUTTON -->
+            <div class="fb-like" data-href="https://github.com/kav-ya/geoFire" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+        </section>
+    </div>
+
+	<!-- JAVASCRIPTS -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
+	<script src="https://cdn.firebase.com/v0/firebase.js"></script>
+	<script src="https://cdn.firebase.com/libs/angularfire/0.3.0/angularfire.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+
+</section>
+</body>
 </html>
