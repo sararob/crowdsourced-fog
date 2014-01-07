@@ -2,12 +2,11 @@
 
 $('#wrapper').on('click', '.button', function(e) {
 	e.preventDefault();
-	console.log('clicked');
 });
 
 var myapp = angular.module("myapp", ["firebase"]);
 
-function WeatherController($scope, angularFire) {
+function WeatherController($scope, $firebase) {
 	$scope.hoods = [{
 		value: 'The Richmond',
 		id: 'the-richmond'
@@ -60,25 +59,37 @@ function WeatherController($scope, angularFire) {
 
 	$scope.init = function(neighborhood) {
 
-		$scope.neighborhood = neighborhood;
+		var ref = $firebase(new Firebase("https://angular-experiment.firebaseio.com/" + neighborhood));
+		
+		ref.$on('loaded', function(values) {
+			$scope.sunny = values['sunny'];
+			$scope.foggy = values['foggy'];
 
-		var ref = new Firebase("https://angular-experiment.firebaseio.com/" + neighborhood);
-		$scope.sunny = 0;
-		$scope.foggy = 0;
-		$scope.weather = "sunny";
-		angularFire(ref.child("sunny"), $scope, "sunny");
-		angularFire(ref.child("foggy"), $scope, "foggy");
+			//Check values to display sun or fog image
+			if ($scope.sunny >= $scope.foggy) {
+				$scope.weather = "sunny";
+			} else {
+				$scope.weather = "foggy";
+			}
+		});
 
-		$scope.$watch("sunny", updateWeather);
-		$scope.$watch("foggy", updateWeather);
+		$scope.updateCount = function(forecast) {
 
-		function updateWeather() {
+			//Increment counters
+			if (forecast == "sun") {
+				ref.$child("sunny").$set($scope.sunny+1);
+				$scope.sunny += 1;
+			} else {
+				ref.$child("foggy").$set($scope.foggy+1);
+				$scope.foggy += 1;
+			}
 
+			//Check values and update weather image
 			if ($scope.sunny >= $scope.foggy) {
 				$scope.weather = "sunny";
 			} else {
 				$scope.weather = "foggy";
 			}
 		}
-	};
+	}
 }
