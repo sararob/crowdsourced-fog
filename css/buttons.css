@@ -165,6 +165,7 @@
   margin: 0;
   text-decoration: none;
   text-align: center;
+  cursor: pointer;
 }
 /* line 43, ../scss/partials/_buttons.scss */
 .button:hover {

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="css/site.css">
 	<script src="js/vendor/custom.modernizr.js"></script>
 </head>
-<body ng-controller="WeatherController" class="bod">
+<body ng-controller="WeatherController">
 <section id="app">
 
 	<!-- HEADER -->
@@ -38,8 +38,8 @@
 				</div>
 
 				<div class="controls">
-					<a href="#" ng-click="sunny = sunny + 1" class="button button-tiny button-highlight button-rounded"><i class="icon-sun"></i> Sunny</a>
-					<a href="#" ng-click="foggy = foggy + 1" class="right button button-tiny button-primary button-rounded"><i class="icon-cloud"></i> Foggy</a>
+					<a ng-click="updateCount('sun')" class="button button-tiny button-highlight button-rounded"><i class="icon-sun"></i> Sunny</a>
+					<a ng-click="updateCount('fog')" class="right button button-tiny button-primary button-rounded"><i class="icon-cloud"></i> Foggy</a>
 					<div class="clear"></div>
 				</div>
 			</div>
@@ -74,10 +74,9 @@
     </div>
 
 	<!-- JAVASCRIPTS -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
 	<script src="https://cdn.firebase.com/v0/firebase.js"></script>
-	<script src="https://cdn.firebase.com/libs/angularfire/0.3.0/angularfire.min.js"></script>
+	<script src="https://cdn.firebase.com/libs/angularfire/0.5.0/angularfire.min.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 
 </section>
