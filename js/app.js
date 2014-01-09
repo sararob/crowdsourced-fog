@@ -1,7 +1,3 @@
-$('#wrapper').on('click', '.button', function(e) {
-	e.preventDefault();
-});
-
 var myapp = angular.module("myapp", ["firebase"]);
 
 function WeatherController($scope, $firebase) {
@@ -76,10 +72,10 @@ function WeatherController($scope, $firebase) {
 			//Increment counters
 			if (forecast == "sun") {
 				$scope.sunny += 1;
-				ref.$child("sunny").$set($scope.sunny+1);
+				ref.$child("sunny").$set($scope.sunny);
 			} else {
 				$scope.foggy += 1;
-				ref.$child("foggy").$set($scope.foggy+1);
+				ref.$child("foggy").$set($scope.foggy);
 			}
 
 			//Check values and update weather image
