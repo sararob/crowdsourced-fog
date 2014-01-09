@@ -1,5 +1,3 @@
-
-
 $('#wrapper').on('click', '.button', function(e) {
 	e.preventDefault();
 });
@@ -48,7 +46,7 @@ function WeatherController($scope, $firebase) {
 		id: 'russian-hill'
 	}, {
 		value: 'Chinatown',
-		id: 'chiatown'
+		id: 'chinatown'
 	}, {
 		value: 'The Marina',
 		id: 'marina'
@@ -60,7 +58,7 @@ function WeatherController($scope, $firebase) {
 	$scope.init = function(neighborhood) {
 
 		var ref = $firebase(new Firebase("https://angular-experiment.firebaseio.com/" + neighborhood));
-		
+
 		ref.$on('loaded', function(values) {
 			$scope.sunny = values['sunny'];
 			$scope.foggy = values['foggy'];
@@ -77,11 +75,11 @@ function WeatherController($scope, $firebase) {
 
 			//Increment counters
 			if (forecast == "sun") {
-				ref.$child("sunny").$set($scope.sunny+1);
 				$scope.sunny += 1;
+				ref.$child("sunny").$set($scope.sunny+1);
 			} else {
-				ref.$child("foggy").$set($scope.foggy+1);
 				$scope.foggy += 1;
+				ref.$child("foggy").$set($scope.foggy+1);
 			}
 
 			//Check values and update weather image
