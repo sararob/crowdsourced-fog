@@ -69,13 +69,17 @@ function WeatherController($scope, $firebase) {
 
 		$scope.updateCount = function(forecast) {
 
-			//Increment counters
-			if (forecast == "sun") {
+			//Increment counter in Firebase using a transaction
+			var forecastRef = new Firebase("https://angular-experiment.firebaseio.com/" + neighborhood + "/" + forecast);
+			forecastRef.transaction(function(current_val) {
+				return current_val + 1;
+			});
+
+			//Update counters in the DOM
+			if (forecast == "sunny") {
 				$scope.sunny += 1;
-				ref.$child("sunny").$set($scope.sunny);
 			} else {
 				$scope.foggy += 1;
-				ref.$child("foggy").$set($scope.foggy);
 			}
 
 			//Check values and update weather image
