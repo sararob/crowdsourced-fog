@@ -51,20 +51,17 @@ function WeatherController($scope, $firebase) {
 		id: 'hayes-valley'
 	}];
 
+
+
 	$scope.init = function(neighborhood) {
 
 		var ref = $firebase(new Firebase("https://angular-experiment.firebaseio.com/" + neighborhood));
-
+		
 		ref.$on('loaded', function(values) {
 			$scope.sunny = values['sunny'];
 			$scope.foggy = values['foggy'];
 
-			//Check values to display sun or fog image
-			if ($scope.sunny >= $scope.foggy) {
-				$scope.weather = "sunny";
-			} else {
-				$scope.weather = "foggy";
-			}
+			checkWeather($scope.sunny, $scope.foggy);
 		});
 
 		$scope.updateCount = function(forecast) {
@@ -82,12 +79,17 @@ function WeatherController($scope, $firebase) {
 				$scope.foggy += 1;
 			}
 
-			//Check values and update weather image
-			if ($scope.sunny >= $scope.foggy) {
-				$scope.weather = "sunny";
-			} else {
-				$scope.weather = "foggy";
-			}
+			checkWeather($scope.sunny, $scope.foggy);
+		}
+	}
+
+	//Check values to display sun or fog image
+	var checkWeather = function(sunny, foggy) {
+
+		if (sunny >= foggy) {
+			$scope.weather = "sunny";
+		} else {
+			$scope.weather = "foggy";
 		}
 	}
 }
