@@ -26,14 +26,14 @@
 	<section id="wrapper">
 
 		<div ng-repeat="hood in hoods | filter:query" class="neighborhood animated swing">
-			<div class="card" id="{{hood.id}}" ng-class="{'sunny': weather == 'sunny', 'foggy': weather == 'foggy'}" ng-controller="WeatherController" ng-init="init(hood.value)">
+			<div class="card" id="{{hood.id}}" ng-class="{'sunny': weather == 'sunny', 'foggy': weather == 'foggy'}" ng-controller="NeighborhoodController" ng-init="init(hood.value)">
 
-				<h3 class="hood">{{hood.value}}</h3>
+				<h3 class="hood" ng-cloak>{{hood.value}}</h3>
 				<h4 class="weather-heading" ng-class="{'sunny': weather == 'sunny', 'foggy': weather == 'foggy'}"></h4>
 
-				<div id="weather-count">
-					<span class="test left">sunny: {{sunny}}</span>
-					<span class="foggy-count right">foggy {{foggy}}</span>
+				<div id="weather-count" ng-cloak>
+					<span class="test left">sunny: {{data.sunny}}</span>
+					<span class="foggy-count right">foggy {{data.foggy}}</span>
 					<div class="clear"></div>
 				</div>
 
@@ -76,7 +76,7 @@
 	<!-- JAVASCRIPTS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
 	<script src="https://cdn.firebase.com/v0/firebase.js"></script>
-	<script src="https://cdn.firebase.com/libs/angularfire/0.5.0/angularfire.min.js"></script>
+	<script src="js/angular.0.6-pre.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 
 </section>

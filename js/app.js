@@ -50,43 +50,35 @@ function WeatherController($scope, $firebase) {
 		value: 'Hayes Valley',
 		id: 'hayes-valley'
 	}];
+}
 
+function NeighborhoodController($scope, $firebase, Firebase) {
+   $scope.init = function(neighborhood) {
+      // bind Firebase data to scope variable 'data'
+      var FBURL = "https://angular-experiment.firebaseio.com/";
+      $scope.data = $firebase(new Firebase(FBURL + neighborhood));
 
-
-	$scope.init = function(neighborhood) {
-
-		var ref = $firebase(new Firebase("https://angular-experiment.firebaseio.com/" + neighborhood));
-		
-		ref.$on('loaded', function(values) {
-			$scope.sunny = values['sunny'];
-			$scope.foggy = values['foggy'];
-
-			checkWeather($scope.sunny, $scope.foggy);
-		});
+      // monitor data for updates and check weather setting
+      $scope.data.$on('loaded', checkWeather);
+      $scope.data.$on('change', checkWeather);
 
 		$scope.updateCount = function(forecast) {
-
 			//Increment counter in Firebase using a transaction
-			var forecastRef = new Firebase("https://angular-experiment.firebaseio.com/" + neighborhood + "/" + forecast);
+         var forecastRef = new Firebase(FBURL + neighborhood);
 			forecastRef.transaction(function(current_val) {
-				return current_val + 1;
+            // initialize the data if this neighborhood hasn't been saved before
+            if( !current_val ) { current_val = {sunny: 0, foggy: 0, forecast: 0}; }
+
+            current_val.forecast++;
+            current_val[forecast]++;
+            return current_val;
 			});
-
-			//Update counters in the DOM
-			if (forecast == "sunny") {
-				$scope.sunny += 1;
-			} else {
-				$scope.foggy += 1;
-			}
-
-			checkWeather($scope.sunny, $scope.foggy);
-		}
-	}
+      };
+   };
 
 	//Check values to display sun or fog image
-	var checkWeather = function(sunny, foggy) {
-
-		if (sunny >= foggy) {
+   function checkWeather() {
+      if ($scope.data.sunny >= $scope.data.foggy) {
 			$scope.weather = "sunny";
 		} else {
 			$scope.weather = "foggy";
